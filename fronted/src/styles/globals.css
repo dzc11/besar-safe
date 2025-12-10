@@ -1,1 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* basic Leaflet css import fallback if not using CDN */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+/* small custom */
+body {
+  background: #f7fbfd;
+}
