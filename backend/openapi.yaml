@@ -1,1 +1,70 @@
+openapi: 3.0.0
+info:
+  title: BesarSafe API
+  version: "1.0"
+paths:
+  /api/report:
+    post:
+      summary: Create a flood report
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                houseNumber:
+                  type: string
+                severity:
+                  type: string
+                  enum: [NONE, LIGHT, MEDIUM, HEAVY]
+                waterLevel:
+                  type: integer
+                latitude:
+                  type: number
+                longitude:
+                  type: number
+                rw:
+                  type: string
+                phone:
+                  type: string
+                photo:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Created
+    get:
+      summary: List reports
+      responses:
+        '200':
+          description: List of reports
 
+  /api/report/{id}:
+    get:
+      summary: Get a report
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Single report
+
+  /api/admin/verify:
+    patch:
+      summary: Verify/unverify a report
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                verified:
+                  type: boolean
+      responses:
+        '200':
+          description: Updated
