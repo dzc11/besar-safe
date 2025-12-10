@@ -1,1 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Report {
+  id          String   @id @default(uuid())
+  houseNumber String
+  severity    Severity
+  waterLevel  Int
+  photoUrl    String?
+  latitude    Float
+  longitude   Float
+  rw          String?     // RW (neighborhood unit) optional
+  createdAt   DateTime @default(now())
+  verified    Boolean  @default(false)
+  reporterPhone String?   // optional phone that reported
+}
+
+enum Severity {
+  NONE
+  LIGHT
+  MEDIUM
+  HEAVY
+}
+
+model Admin {
+  id        String @id @default(uuid())
+  name      String
+  email     String @unique
+  password  String
+  createdAt DateTime @default(now())
+}
